@@ -5,12 +5,13 @@ import Navbar from "../../Components/Navbar/Navbar";
 import ProductsSection from "../../Components/ProductsSection/ProductsSection";
 import TestimonialsSection from "../../Components/TestimonialsSection/TestimonialsSection";
 import WhyChooseUsSection from "../../Components/WhyChooseUsSection/WhyChooseUs";
+import { CartProvider } from "../../Context/CartContext"; // Import the provider
 
 const Homepage = () => {
   const [navbarHeight, setNavbarHeight] = useState(0);
 
   return (
-    <>
+    <CartProvider>
       <Navbar setNavbarHeight={setNavbarHeight} />
       <main style={{ paddingTop: `${navbarHeight}px` }}>
         <Banner />
@@ -19,7 +20,7 @@ const Homepage = () => {
         <WhyChooseUsSection />
         <Footer />
       </main>
-    </>
+    </CartProvider>
   );
 };
 

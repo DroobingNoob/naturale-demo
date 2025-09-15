@@ -2,12 +2,15 @@ import { Link } from "react-router-dom";
 import { ShoppingCart, User, Search, X } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import OfferBanner from "../OfferBanner/OfferBanner";
+import { useCart } from "../../Context/CartContext"; // Import the cart hook
 
 const Navbar = ({ setNavbarHeight }) => {
   const [search, setSearch] = useState("");
   const [showBanner, setShowBanner] = useState(true);
   const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
   const navbarRef = useRef(null);
+
+  const { totalItems } = useCart(); // Get the total cart items
 
   useEffect(() => {
     const handleScroll = () => {
@@ -49,7 +52,6 @@ const Navbar = ({ setNavbarHeight }) => {
           />
         </Link>
 
-        {/* Desktop Search */}
         <div className="hidden md:flex flex-1 mx-8 max-w-lg">
           <input
             type="text"
@@ -60,7 +62,6 @@ const Navbar = ({ setNavbarHeight }) => {
           />
         </div>
 
-        {/* Right Side */}
         <div className="flex items-center space-x-5 text-sm">
           <Link
             to="/"
@@ -69,16 +70,17 @@ const Navbar = ({ setNavbarHeight }) => {
             <User className="mr-1 h-4 w-4" /> Login
           </Link>
           <Link
-            to="/"
+            to="/cart"
             className="relative text-brandGreenDark hover:text-brandTeal transition"
           >
             <ShoppingCart className="h-5 w-5" />
-            <span className="absolute -top-1 -right-2 bg-brandYellow text-white text-[10px] px-1 rounded-full">
-              0
-            </span>
+            {totalItems > 0 && (
+              <span className="absolute -top-1 -right-2 bg-brandYellow text-white text-[10px] px-1 rounded-full">
+                {totalItems}
+              </span>
+            )}
           </Link>
 
-          {/* Mobile Search Icon */}
           <button
             className="md:hidden text-brandGreenDark hover:text-brandTeal transition bg-transparent p-0 border-0"
             onClick={() => setMobileSearchOpen(!mobileSearchOpen)}
@@ -92,7 +94,6 @@ const Navbar = ({ setNavbarHeight }) => {
         </div>
       </div>
 
-      {/* Mobile Search Input with smooth slide */}
       <div
         className={`md:hidden overflow-hidden transition-[max-height,opacity,padding] duration-300 ${
           mobileSearchOpen
@@ -109,7 +110,6 @@ const Navbar = ({ setNavbarHeight }) => {
         />
       </div>
 
-      {/* Bottom Nav Links */}
       <nav className="bg-transparent px-4 md:px-10">
         <ul className="flex items-center space-x-6 py-2 text-sm font-medium text-brandGreenDark">
           {[

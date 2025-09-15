@@ -1,4 +1,5 @@
 import { ShoppingCart } from "lucide-react";
+import { useCart } from "../../Context/CartContext"; // Import the cart hook
 
 const products = [
   {
@@ -25,6 +26,8 @@ const products = [
 ];
 
 const ProductsSection = () => {
+  const { addToCart } = useCart(); // Get the add function from the context
+
   return (
     <section className="px-4 md:px-10 py-12 bg-[#fdfaf8]">
       <h2 className="text-2xl md:text-3xl font-bold text-brandGreen mb-8 text-center">
@@ -46,13 +49,11 @@ const ProductsSection = () => {
               className="bg-white rounded-2xl shadow-md hover:shadow-lg transition overflow-hidden group"
             >
               <div className="relative">
-                {/* Discount Badge */}
                 {discount && (
                   <span className="absolute top-3 left-3 z-10 bg-brandYellow text-white text-xs font-semibold px-2 py-1 rounded-full shadow-md pointer-events-none">
                     {discount}% OFF
                   </span>
                 )}
-
                 <img
                   src={product.image}
                   alt={product.name}
@@ -73,7 +74,10 @@ const ProductsSection = () => {
                     </span>
                   )}
                 </div>
-                <button className="mt-4 flex items-center justify-center gap-2 bg-black text-white py-2 px-4 rounded-full hover:bg-brandGreenDark transition text-sm font-medium">
+                <button
+                  className="mt-4 flex items-center justify-center gap-2 bg-black text-white py-2 px-4 rounded-full hover:bg-brandGreenDark transition text-sm font-medium"
+                  onClick={() => addToCart(product)}
+                >
                   <ShoppingCart className="h-4 w-4" /> Add to Cart
                 </button>
               </div>
