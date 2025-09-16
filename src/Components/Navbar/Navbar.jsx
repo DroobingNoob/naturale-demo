@@ -65,16 +65,16 @@ const Navbar = ({ setNavbarHeight }) => {
         <div className="flex items-center space-x-5 text-sm">
           <Link
             to="/"
-            className="flex items-center text-brandGreenDark hover:text-brandTeal transition"
+            className="flex items-center text-brandGreenDark hover:text-brandTeal transition inline-block transition-transform duration-200 ease-in-out hover:scale-110"
           >
             <User className="mr-1 h-4 w-4" /> Login
           </Link>
           <Link
             to="/cart"
-            className="relative text-brandGreenDark hover:text-brandTeal transition"
+            className="relative text-brandGreenDark hover:text-brandTeal transition inline-block transition-transform duration-200 ease-in-out hover:scale-110"
           >
             <ShoppingCart className="h-5 w-5" />
-            {totalItems > 0 && (
+            {totalItems >= 0 && (
               <span className="absolute -top-1 -right-2 bg-brandYellow text-white text-[10px] px-1 rounded-full">
                 {totalItems}
               </span>
@@ -121,10 +121,9 @@ const Navbar = ({ setNavbarHeight }) => {
             <li key={link.to}>
               <Link
                 to={link.to}
-                className="relative group transition-colors duration-200 text-brandGreenDark hover:text-brandGreenDark"
+                className="inline-block transition-transform duration-200 ease-in-out hover:scale-110 hover:text-brandTeal"
               >
                 {link.label}
-                <span className="absolute left-0 -bottom-0.5 w-0 h-[2px] bg-brandGreenDark transition-all duration-300 group-hover:w-full"></span>
               </Link>
             </li>
           ))}
